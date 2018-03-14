@@ -13,19 +13,18 @@ html, body {
     padding: 0;
 }
 
-body {
-    background: #ffffff url('../img/pspattern.png');
-    /* Background pattern from Subtle Patterns */
+body{
+    background: #ffffff url('../img/pspattern.png'); /* Background pattern from Subtle Patterns */
 }
 
-.container {
-    display: flex;
+.container{
+    display:flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.score-table {
+.score-table{
     text-align: left;
     width: 500px;
     padding: 0;
@@ -34,6 +33,8 @@ body {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+   
+
 }
 
 .stars {
