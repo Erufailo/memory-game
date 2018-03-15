@@ -16,6 +16,7 @@ function shuffle(array) {
 /*
  * Create a list that holds all of your cards
  */
+let cardTest = [];
 let cards = ["diamond", "diamond", "plane", "plane", "anchor", "anchor", "bolt", "bolt", "leaf", "leaf"
     , "bicycle", "bicycle", "cube", "cube", "bomb", "bomb"];
 console.log(cards);
@@ -55,9 +56,45 @@ for (let card of shuffledCards) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-// const card = document.getElementsByClassName('.card');
-// for (let acard of card) {
-//     acard.addEventListener("click", function () {
-//         this.classList.toggle('show');
-//     });
-// }
+const card = document.getElementsByClassName('card');
+function initListeners() {
+    for (let i = 0; i < card.length; i++) {
+        card.item(i).addEventListener("click", function (event) {
+            showCard(event.target);            
+            setTimeout(addCard,1000,shuffledCards[i], event.target, cardTest);
+        });
+    }
+}
+function showCard(card) {
+    card.classList.add('show');
+}
+function addCard(card, cardHTML, testList) {
+
+    testList.push(card);
+    testList.push(cardHTML)
+    console.log(card, testList, testList.length, testList[0]);
+    if (testList.length === 4) {
+        testCards(testList[0], testList[1], testList[2], testList[3]);
+        testList.length = 0;
+    }
+}
+function testCards(card1, html1, card2, html2) {
+    if (card1 === card2) {
+        html1.classList.add('match');
+        html2.classList.add('match');
+      
+
+    } else {
+        html1.classList.toggle('show');
+        html2.classList.toggle('show');
+    }
+    return false;
+}
+initListeners();
+
+
+
+
+
+
+
