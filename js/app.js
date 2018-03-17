@@ -56,37 +56,56 @@ for (let card of shuffledCards) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-const card = document.getElementsByClassName('card');
+let cardObject = {
+    name: "",
+    clickable: false,
+    HTML: ""
+
+};
+function aListener() {
+
+}
+let cardsArray = []
+const card = document.querySelectorAll('.card');
+const ul = document.querySelector('.deck');
+
+console.log(card);
 function initListeners() {
     for (let i = 0; i < card.length; i++) {
-        card.item(i).addEventListener("click", function (event) {
-            showCard(event.target);            
-            setTimeout(addCard,1000,shuffledCards[i], event.target, cardTest);
+        card[i].addEventListener("click", function (event) {
+            if (!event.target.classList.contains("match") || !event.target.classList.contains("show")) {
+                showCard(event.target);
+                setTimeout(addCard, 1000, shuffledCards[i], event.target, cardTest, i);
+            }
         });
     }
 }
 function showCard(card) {
     card.classList.add('show');
+
 }
-function addCard(card, cardHTML, testList) {
+function addCard(card, cardHTML, testList, x) {
 
     testList.push(card);
     testList.push(cardHTML)
-    console.log(card, testList, testList.length, testList[0]);
-    if (testList.length === 4) {
-        testCards(testList[0], testList[1], testList[2], testList[3]);
+    testList.push(x);
+    console.log(card, testList, testList.length, testList[0], cardHTML);
+    if (testList.length === 6) {
+        testCards(testList[0], testList[1], testList[2], testList[3], testList[4], testList[5]);
         testList.length = 0;
     }
 }
-function testCards(card1, html1, card2, html2) {
-    if (card1 === card2) {
+function testCards(card1, html1, x1, card2, html2, x2) {
+    if (card1 === card2 && x1 != x2) {
         html1.classList.add('match');
         html2.classList.add('match');
-      
 
+    } else if (card1 === card2 && x1 == x2) {
+        html1.classList.toggle('show');
     } else {
         html1.classList.toggle('show');
         html2.classList.toggle('show');
+
     }
     return false;
 }
