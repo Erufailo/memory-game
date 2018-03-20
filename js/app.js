@@ -66,12 +66,27 @@ let cardObject = {
 let cardsArray = []
 const card = document.querySelectorAll('.card');
 const ul = document.querySelector('.deck');
-let moves= document.querySelector(".moves");
-let movesCounter =0;
+let moves = document.querySelector(".moves");
+let movesCounter = 0;
 
-function updateMoveCounter(){
+
+function updateMoveCounter() {
     movesCounter++;
-    moves.textContent="Moves: "+movesCounter;
+    moves.textContent = "Moves: " + movesCounter;
+    if (movesCounter === 25) {
+        let star = document.querySelector("#star3");
+        star.classList.toggle("fa-star");
+        star.classList.add("fa-star-o");
+    } else if (movesCounter === 50) {
+        let star = document.querySelector("#star2");
+        star.classList.toggle("fa-star");
+        star.classList.add("fa-star-o");
+
+    } else if (movesCounter === 75) {
+        let star = document.querySelector("#star1");
+        star.classList.toggle("fa-star");
+        star.classList.add("fa-star-o");
+    }
 }
 console.log(card);
 function initListeners() {
@@ -105,6 +120,7 @@ function testCards(card1, html1, x1, card2, html2, x2) {
     if (card1 === card2 && x1 != x2) {
         html1.classList.add('match');
         html2.classList.add('match');
+        
 
     } else if (card1 === card2 && x1 == x2) {
         html1.classList.toggle('show');
