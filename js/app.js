@@ -68,21 +68,21 @@ const card = document.querySelectorAll('.card');
 const ul = document.querySelector('.deck');
 let moves = document.querySelector(".moves");
 let movesCounter = 0;
-
+let match = 0;
 
 function updateMoveCounter() {
     movesCounter++;
     moves.textContent = "Moves: " + movesCounter;
-    if (movesCounter === 25) {
+    if (movesCounter === 13) {
         let star = document.querySelector("#star3");
         star.classList.toggle("fa-star");
         star.classList.add("fa-star-o");
-    } else if (movesCounter === 50) {
+    } else if (movesCounter === 25) {
         let star = document.querySelector("#star2");
         star.classList.toggle("fa-star");
         star.classList.add("fa-star-o");
 
-    } else if (movesCounter === 75) {
+    } else if (movesCounter === 35) {
         let star = document.querySelector("#star1");
         star.classList.toggle("fa-star");
         star.classList.add("fa-star-o");
@@ -94,7 +94,7 @@ function initListeners() {
         card[i].addEventListener("click", function (event) {
 
             showCard(event.target);
-            updateMoveCounter()
+
             setTimeout(addCard, 1000, shuffledCards[i], event.target, cardTest, i);
 
         });
@@ -112,21 +112,34 @@ function addCard(card, cardHTML, testList, x) {
     }
     console.log(card, testList, testList.length, testList[0], cardHTML);
     if (testList.length === 6) {
+
         testCards(testList[0], testList[1], testList[2], testList[3], testList[4], testList[5]);
         testList.length = 0;
+        updateMoveCounter();
     }
 }
 function testCards(card1, html1, x1, card2, html2, x2) {
     if (card1 === card2 && x1 != x2) {
         html1.classList.add('match');
         html2.classList.add('match');
-        
+        match++;
+        if (match === 8) {
+            alert("You won");
+        }
 
     } else if (card1 === card2 && x1 == x2) {
         html1.classList.toggle('show');
     } else {
-        html1.classList.toggle('show');
-        html2.classList.toggle('show');
+        setTimeout(function () {
+            html1.classList.toggle('no-match');
+            html2.classList.toggle('no-match');
+            html1.classList.toggle('show');
+            html2.classList.toggle('show');
+
+        }, 500);
+        html1.classList.toggle('no-match');
+        html2.classList.toggle('no-match');
+
 
     }
     return false;

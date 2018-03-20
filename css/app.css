@@ -13,18 +13,19 @@ html, body {
     padding: 0;
 }
 
-body{
-    background: #ffffff url('../img/pspattern.png'); /* Background pattern from Subtle Patterns */
+body {
+    background: #ffffff url('../img/pspattern.png');
+    /* Background pattern from Subtle Patterns */
 }
 
-.container{
-    display:flex;
+.container {
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.score-table{
+.score-table {
     text-align: left;
     width: 500px;
     padding: 0;
@@ -33,8 +34,6 @@ body{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-   
-
 }
 
 .stars {
@@ -77,20 +76,23 @@ body{
     list-style: none;
     margin-top: 15px;
     cursor: pointer;
-    
-    
 }
 
- 
-.show{
+.show {
     transform: rotateY(180deg);
     transition: 0.5s;
     background: skyblue;
     font-size: 33px;
-    color:white;
+    color: white;
     cursor: default;
 }
 
-.match{
+.match {
     background: rgb(4, 172, 54);
+}
+
+.no-match {
+    background: rgb(175, 38, 38);    
+    transition: 0.1s;
+    
 }
