@@ -62,21 +62,26 @@ let cardObject = {
     HTML: ""
 
 };
-function aListener() {
 
-}
 let cardsArray = []
 const card = document.querySelectorAll('.card');
 const ul = document.querySelector('.deck');
+let moves= document.querySelector(".moves");
+let movesCounter =0;
 
+function updateMoveCounter(){
+    movesCounter++;
+    moves.textContent="Moves: "+movesCounter;
+}
 console.log(card);
 function initListeners() {
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener("click", function (event) {
-            if (!event.target.classList.contains("match") || !event.target.classList.contains("show")) {
-                showCard(event.target);
-                setTimeout(addCard, 1000, shuffledCards[i], event.target, cardTest, i);
-            }
+
+            showCard(event.target);
+            updateMoveCounter()
+            setTimeout(addCard, 1000, shuffledCards[i], event.target, cardTest, i);
+
         });
     }
 }
@@ -85,10 +90,11 @@ function showCard(card) {
 
 }
 function addCard(card, cardHTML, testList, x) {
-
-    testList.push(card);
-    testList.push(cardHTML)
-    testList.push(x);
+    if (!cardHTML.classList.contains("match") || !cardHTML.classList.contains("show")) {
+        testList.push(card);
+        testList.push(cardHTML)
+        testList.push(x);
+    }
     console.log(card, testList, testList.length, testList[0], cardHTML);
     if (testList.length === 6) {
         testCards(testList[0], testList[1], testList[2], testList[3], testList[4], testList[5]);
