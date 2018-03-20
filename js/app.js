@@ -92,12 +92,12 @@ console.log(card);
 function initListeners() {
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener("click", function (event) {
-
+            if (card[i] !== event.target) return;
             showCard(event.target);
 
             setTimeout(addCard, 1000, shuffledCards[i], event.target, cardTest, i);
 
-        });
+        },false);
     }
 }
 function showCard(card) {
