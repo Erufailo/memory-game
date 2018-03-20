@@ -94,10 +94,9 @@ function initListeners() {
         card[i].addEventListener("click", function (event) {
             if (card[i] !== event.target) return;
             showCard(event.target);
+            setTimeout(addCard, 550, shuffledCards[i], event.target, cardTest, i);
 
-            setTimeout(addCard, 1000, shuffledCards[i], event.target, cardTest, i);
-
-        },false);
+        }, false);
     }
 }
 function showCard(card) {
@@ -136,7 +135,7 @@ function testCards(card1, html1, x1, card2, html2, x2) {
             html1.classList.toggle('show');
             html2.classList.toggle('show');
 
-        }, 500);
+        }, 300);
         html1.classList.toggle('no-match');
         html2.classList.toggle('no-match');
 
