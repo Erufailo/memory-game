@@ -93,9 +93,9 @@ function initListeners() {
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener("click", function (event) {
             if (card[i] !== event.target) return;
+            if (event.target.classList.contains("show")) return;
             showCard(event.target);
             setTimeout(addCard, 550, shuffledCards[i], event.target, cardTest, i);
-
         }, false);
     }
 }
@@ -104,14 +104,11 @@ function showCard(card) {
 
 }
 function addCard(card, cardHTML, testList, x) {
-    if (!cardHTML.classList.contains("match") || !cardHTML.classList.contains("show")) {
-        testList.push(card);
-        testList.push(cardHTML)
-        testList.push(x);
-    }
+    testList.push(card);
+    testList.push(cardHTML)
+    testList.push(x);
     console.log(card, testList, testList.length, testList[0], cardHTML);
     if (testList.length === 6) {
-
         testCards(testList[0], testList[1], testList[2], testList[3], testList[4], testList[5]);
         testList.length = 0;
         updateMoveCounter();
@@ -126,8 +123,6 @@ function testCards(card1, html1, x1, card2, html2, x2) {
             alert("You won");
         }
 
-    } else if (card1 === card2 && x1 == x2) {
-        html1.classList.toggle('show');
     } else {
         setTimeout(function () {
             html1.classList.toggle('no-match');
