@@ -30,20 +30,22 @@ console.log(cards);
 let shuffledCards = shuffle(cards);
 console.log(shuffledCards);
 
-for (let card of shuffledCards) {
-    const li = document.createElement("LI");
-    li.classList.toggle("card");
-    const i = document.createElement("i");
-    i.classList.toggle("fa");
-    if (card === "plane") {
-        i.classList.toggle("fa-paper-plane-o");
-    } else {
-        i.classList.toggle("fa-" + card);
-    }
-    const deck = document.querySelector('.deck');
-    li.appendChild(i);
-    deck.appendChild(li);
+function createCards() {
+    for (let card of shuffledCards) {
+        const li = document.createElement("LI");
+        li.classList.toggle("card");
+        const i = document.createElement("i");
+        i.classList.toggle("fa");
+        if (card === "plane") {
+            i.classList.toggle("fa-paper-plane-o");
+        } else {
+            i.classList.toggle("fa-" + card);
+        }
+        const deck = document.querySelector('.deck');
+        li.appendChild(i);
+        deck.appendChild(li);
 
+    }
 }
 
 /*
@@ -64,7 +66,7 @@ let cardObject = {
 };
 
 let cardsArray = []
-const card = document.querySelectorAll('.card');
+
 const ul = document.querySelector('.deck');
 let moves = document.querySelector(".moves");
 let movesCounter = 0;
@@ -89,15 +91,17 @@ function updateMoveCounter() {
         star.classList.add("fa-star-o");
     }
 }
-console.log(card);
+//console.log(card);
 let timerID;
-function initListeners() {
+function initGame() {
+    createCards();
+    const card = document.querySelectorAll('.card');
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener("click", function (event) {
             if (card[i] !== event.target) return;
             if (event.target.classList.contains("show")) return;
             if (isfirstClick) {
-                timerID = setInterval(timer , 1000);
+                timerID = setInterval(timer, 1000);
                 isfirstClick = false;
             }
             showCard(event.target);
@@ -128,7 +132,7 @@ function testCards(card1, html1, x1, card2, html2, x2) {
         if (match === 8) {
             clearInterval(timerID);
             alert("You won");
-            
+
         }
 
     } else {
@@ -146,20 +150,59 @@ function testCards(card1, html1, x1, card2, html2, x2) {
     }
     return false;
 }
-let s=0;
-let m=0;
-function timer(){
+let s = 0;
+let m = 0;
+function timer() {
     ++s;
-    m=Math.floor( s / 60);
+    m = Math.floor(s / 60);
     let timer = document.querySelector(".timer");
-    if(s%60<10){
-        timer.textContent= "Elapsed Time: "+m +":0"+s%60; 
-    }else{
-        timer.textContent= "Elapsed Time: "+m +":"+s%60; 
+    if (s % 60 < 10) {
+        timer.textContent = "Elapsed Time: " + m + ":0" + s % 60;
+    } else {
+        timer.textContent = "Elapsed Time: " + m + ":" + s % 60;
     }
-    
+
 }
-initListeners();
+let restart = document.querySelector(".restart");
+restart.addEventListener("click", restartGame, false);
+function restartGame() { //TODO Modal for question
+    clearInterval(timerID);
+    movesCounter = 0;
+    match = 0;
+    s = 0;
+    m = 0;
+    isfirstClick = true;
+    const deck = document.querySelector('.deck');
+    var elements = deck.getElementsByClassName("card");
+
+    while (elements[0]) {
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+    shuffledCards = shuffle(cards);
+    let timer = document.querySelector(".timer");
+    timer.textContent = "Elapsed Time: 0:00";
+    moves.textContent = "Moves: " + movesCounter;
+    resetStars();
+    initGame();
+}
+
+function resetStars() {
+    let star = document.querySelector("#star3");
+    star.classList.remove("fa-star");
+    star.classList.remove("fa-star-o");
+    star.classList.add("fa-star");
+
+    star = document.querySelector("#star2");
+    star.classList.remove("fa-star");
+    star.classList.remove("fa-star-o");
+    star.classList.add("fa-star");
+
+    star = document.querySelector("#star1");
+    star.classList.remove("fa-star");
+    star.classList.remove("fa-star-o");
+    star.classList.add("fa-star");
+}
+initGame();
 
 
 
