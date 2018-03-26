@@ -69,6 +69,7 @@ const ul = document.querySelector('.deck');
 let moves = document.querySelector(".moves");
 let movesCounter = 0;
 let match = 0;
+let isfirstClick = true;
 
 function updateMoveCounter() {
     movesCounter++;
@@ -89,11 +90,16 @@ function updateMoveCounter() {
     }
 }
 console.log(card);
+let timerID;
 function initListeners() {
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener("click", function (event) {
             if (card[i] !== event.target) return;
             if (event.target.classList.contains("show")) return;
+            if (isfirstClick) {
+                timerID = setInterval(timer , 1000);
+                isfirstClick = false;
+            }
             showCard(event.target);
             setTimeout(addCard, 550, shuffledCards[i], event.target, cardTest, i);
         }, false);
@@ -120,7 +126,9 @@ function testCards(card1, html1, x1, card2, html2, x2) {
         html2.classList.add('match');
         match++;
         if (match === 8) {
+            clearInterval(timerID);
             alert("You won");
+            
         }
 
     } else {
@@ -137,6 +145,19 @@ function testCards(card1, html1, x1, card2, html2, x2) {
 
     }
     return false;
+}
+let s=0;
+let m=0;
+function timer(){
+    ++s;
+    m=Math.floor( s / 60);
+    let timer = document.querySelector(".timer");
+    if(s%60<10){
+        timer.textContent= "Elapsed Time: "+m +":0"+s%60; 
+    }else{
+        timer.textContent= "Elapsed Time: "+m +":"+s%60; 
+    }
+    
 }
 initListeners();
 
