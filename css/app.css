@@ -6,7 +6,8 @@ html {
     box-sizing: inherit;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -150,7 +151,7 @@ body {
     margin-left: 35px;
 }
 
-#modal-heading {
+.modal-heading {
     letter-spacing: 2px;
 }
 
