@@ -76,15 +76,8 @@ function createCards() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-let cardObject = {
-    name: "",
-    clickable: false,
-    HTML: ""
-
-};
 
 let cardsArray = []
-
 const ul = document.querySelector('.deck');
 let moves = document.querySelector(".moves");
 let movesCounter = 0;
@@ -112,7 +105,6 @@ function updateMoveCounter() {
         stars--;
     }
 }
-//console.log(card);
 let timerID;
 function initGame() {
     createCards();
@@ -179,9 +171,7 @@ function win() {
     } else {
         stats.textContent = "You won with: " + stars + " stars in " + movesCounter + " moves with time: " + m + ":" + s % 60;
     }
-    // alert("You won");
 }
-
 
 let s = 0;
 let m = 0;
@@ -237,9 +227,6 @@ function resetStars() {
     star.classList.add("fa-star");
 }
 
-
-
-
 const newGameButton = document.querySelector(".new-game");
 newGameButton.addEventListener("click", newGame);
 function newGame() {
@@ -247,10 +234,6 @@ function newGame() {
     restartGame();
 }
 
-const winButton = document.querySelector(".win");
-winButton.addEventListener("click", () => {
-    match = 7;
-});
 initGame();
 
 
