@@ -35,7 +35,6 @@ window.addEventListener("click", windowOnClick);
 let cardTest = [];
 let cards = ["diamond", "diamond", "plane", "plane", "anchor", "anchor", "bolt", "bolt", "leaf", "leaf"
     , "bicycle", "bicycle", "cube", "cube", "bomb", "bomb"];
-console.log(cards);
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -43,7 +42,6 @@ console.log(cards);
  *   - add each card's HTML to the page
  */
 let shuffledCards = shuffle(cards);
-console.log(shuffledCards);
 
 /*
  * Create the HTML for the cards in the deck
@@ -118,7 +116,6 @@ function addCard(card, cardHTML, testList, pos) {
     testList.push(card);//the card name
     testList.push(cardHTML)//the HTML element that represents the card
     testList.push(pos);//the position of the card
-    console.log(card, testList, testList.length, testList[0], cardHTML);
     if (testList.length === 6) {//when there are 2 cards in the array
         updateMoveCounter();
         testCards(testList[0], testList[1], testList[2], testList[3], testList[4], testList[5]);//0-2 is first card, 3-5 the second
