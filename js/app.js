@@ -14,7 +14,6 @@ function shuffle(array) {
 }
 //Modal code from https://sabe.io/tutorials/how-to-create-modal-popup-box
 const modal = document.querySelector(".modal");
-const trigger = document.querySelector(".trigger");
 const closeButton = document.querySelector(".close-button");
 
 function toggleModal() {
@@ -27,7 +26,6 @@ function windowOnClick(event) {
     }
 }
 
-trigger.addEventListener("click", toggleModal);
 closeButton.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
 
@@ -44,7 +42,6 @@ console.log(cards);
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
 let shuffledCards = shuffle(cards);
 console.log(shuffledCards);
 
@@ -76,14 +73,13 @@ function createCards() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-let cardsArray = []
 const ul = document.querySelector('.deck');
 let moves = document.querySelector(".moves");
 let movesCounter = 0;
 let stars = 3;
 let match = 0;
 let isfirstClick = true;
+let timerID;
 
 function updateMoveCounter() {
     movesCounter++;
@@ -105,7 +101,7 @@ function updateMoveCounter() {
         stars--;
     }
 }
-let timerID;
+
 function initGame() {
     createCards();
     const card = document.querySelectorAll('.card');
@@ -134,32 +130,34 @@ function addCard(card, cardHTML, testList, x) {
     if (testList.length === 6) {
         updateMoveCounter();
         testCards(testList[0], testList[1], testList[2], testList[3], testList[4], testList[5]);
-        testList.length = 0;        
+        testList.length = 0;
     }
 }
 function testCards(card1, html1, x1, card2, html2, x2) {
     if (card1 === card2 && x1 != x2) {
-        html1.classList.add('match');
-        html2.classList.add('match');
-        match++;
-        if (match === 8) {
-            win();
-        }
-
+        cardsMatch(html1, html2);
     } else {
-        setTimeout(function () {
-            html1.classList.toggle('no-match');
-            html2.classList.toggle('no-match');
-            html1.classList.toggle('show');
-            html2.classList.toggle('show');
-
-        }, 300);
-        html1.classList.toggle('no-match');
-        html2.classList.toggle('no-match');
-
-
+        cardsDontMatch(html1, html2);
     }
-    return false;
+}
+function cardsMatch(card1, card2) {
+    card1.classList.add('match');
+    card2.classList.add('match');
+    match++;
+    if (match === 8) {
+        win();
+    }
+}
+function cardsDontMatch(card1, card2) {
+    card1.classList.toggle('no-match');
+    card2.classList.toggle('no-match');
+    setTimeout(function () {
+        card1.classList.toggle('no-match');
+        card2.classList.toggle('no-match');
+        card1.classList.toggle('show');
+        card2.classList.toggle('show');
+
+    }, 300);    
 }
 
 function win() {
