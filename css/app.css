@@ -14,7 +14,7 @@ html, body {
 }
 
 body {
-    background: #ffffff url('../img/pspattern.png');
+    background: #e0e0e0 url('../img/pspattern.png');
     /* Background pattern from Subtle Patterns */
     font-family: Arial, Helvetica, sans-serif;
 }
