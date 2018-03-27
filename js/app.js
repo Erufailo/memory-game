@@ -80,6 +80,7 @@ let stars = 3;
 let match = 0;
 let isfirstClick = true;
 let timerID;
+let isRestart = false;
 
 function updateMoveCounter() {
     movesCounter++;
@@ -123,6 +124,10 @@ function showCard(card) {
 
 }
 function addCard(card, cardHTML, testList, x) {
+    if (isRestart){
+        testList.length = 0;
+        isRestart=false;
+    }
     testList.push(card);
     testList.push(cardHTML)
     testList.push(x);
@@ -193,6 +198,7 @@ function restartGame() {
     s = 0;
     m = 0;
     isfirstClick = true;
+    isRestart=true;
     const deck = document.querySelector('.deck');
     var elements = deck.getElementsByClassName("card");
 
@@ -203,6 +209,7 @@ function restartGame() {
     let timer = document.querySelector(".timer");
     timer.textContent = "Elapsed Time: 0:00";
     moves.textContent = "Moves: " + movesCounter;
+    
     resetStars();
     initGame();
 }
