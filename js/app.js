@@ -12,6 +12,24 @@ function shuffle(array) {
 
     return array;
 }
+//Modal code from https://sabe.io/tutorials/how-to-create-modal-popup-box
+const modal = document.querySelector(".modal");
+const trigger = document.querySelector(".trigger");
+const closeButton = document.querySelector(".close-button");
+
+function toggleModal() {
+    modal.classList.toggle("show-modal");
+}
+
+function windowOnClick(event) {
+    if (event.target === modal) {
+        toggleModal();
+    }
+}
+
+trigger.addEventListener("click", toggleModal);
+closeButton.addEventListener("click", toggleModal);
+window.addEventListener("click", windowOnClick);
 
 /*
  * Create a list that holds all of your cards
@@ -70,6 +88,7 @@ let cardsArray = []
 const ul = document.querySelector('.deck');
 let moves = document.querySelector(".moves");
 let movesCounter = 0;
+let stars = 3;
 let match = 0;
 let isfirstClick = true;
 
@@ -80,15 +99,17 @@ function updateMoveCounter() {
         let star = document.querySelector("#star3");
         star.classList.toggle("fa-star");
         star.classList.add("fa-star-o");
+        stars--;
     } else if (movesCounter === 25) {
         let star = document.querySelector("#star2");
         star.classList.toggle("fa-star");
         star.classList.add("fa-star-o");
-
+        stars--;
     } else if (movesCounter === 35) {
         let star = document.querySelector("#star1");
         star.classList.toggle("fa-star");
         star.classList.add("fa-star-o");
+        stars--;
     }
 }
 //console.log(card);
@@ -119,9 +140,9 @@ function addCard(card, cardHTML, testList, x) {
     testList.push(x);
     console.log(card, testList, testList.length, testList[0], cardHTML);
     if (testList.length === 6) {
-        testCards(testList[0], testList[1], testList[2], testList[3], testList[4], testList[5]);
-        testList.length = 0;
         updateMoveCounter();
+        testCards(testList[0], testList[1], testList[2], testList[3], testList[4], testList[5]);
+        testList.length = 0;        
     }
 }
 function testCards(card1, html1, x1, card2, html2, x2) {
@@ -130,9 +151,7 @@ function testCards(card1, html1, x1, card2, html2, x2) {
         html2.classList.add('match');
         match++;
         if (match === 8) {
-            clearInterval(timerID);
-            alert("You won");
-
+            win();
         }
 
     } else {
@@ -150,6 +169,20 @@ function testCards(card1, html1, x1, card2, html2, x2) {
     }
     return false;
 }
+
+function win() {
+    clearInterval(timerID);
+    toggleModal();
+    const stats = document.querySelector(".stats");
+    if (s % 60 < 10) {
+        stats.textContent = "You won with: " + stars + " stars in " + movesCounter + " moves with time: " + m + ":0" + s % 60;
+    } else {
+        stats.textContent = "You won with: " + stars + " stars in " + movesCounter + " moves with time: " + m + ":" + s % 60;
+    }
+    // alert("You won");
+}
+
+
 let s = 0;
 let m = 0;
 function timer() {
@@ -165,7 +198,7 @@ function timer() {
 }
 let restart = document.querySelector(".restart");
 restart.addEventListener("click", restartGame, false);
-function restartGame() { //TODO Modal for question
+function restartGame() {
     clearInterval(timerID);
     movesCounter = 0;
     match = 0;
@@ -187,6 +220,7 @@ function restartGame() { //TODO Modal for question
 }
 
 function resetStars() {
+    stars = 3;
     let star = document.querySelector("#star3");
     star.classList.remove("fa-star");
     star.classList.remove("fa-star-o");
@@ -202,6 +236,21 @@ function resetStars() {
     star.classList.remove("fa-star-o");
     star.classList.add("fa-star");
 }
+
+
+
+
+const newGameButton = document.querySelector(".new-game");
+newGameButton.addEventListener("click", newGame);
+function newGame() {
+    toggleModal();
+    restartGame();
+}
+
+const winButton = document.querySelector(".win");
+winButton.addEventListener("click", () => {
+    match = 7;
+});
 initGame();
 
 
