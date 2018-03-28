@@ -28,3 +28,11 @@ These are some ideas I want to implement in the near future.
 * Save/Load state with local storage
 * Leaderboard System
 * Difficulty system
+
+## Code Dependencies
+
+The app is built with the following code dependencies:
+
+1. Font-Awesome icons 4.6.1
+2. Shuffle function from <http://stackoverflow.com/a/2450976>
+3. Modal code from <https://sabe.io/tutorials/how-to-create-modal-popup-box>
