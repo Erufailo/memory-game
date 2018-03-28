@@ -33,15 +33,15 @@ window.addEventListener("click", windowOnClick);
  * Create a list that holds all of your cards
  */
 let cardTest = [];
-let cards = ["diamond", "diamond", "plane", "plane", "anchor", "anchor", "bolt", "bolt", "leaf", "leaf"
-    , "bicycle", "bicycle", "cube", "cube", "bomb", "bomb"];
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-let shuffledCards = shuffle(cards);
+const cardNames = ["diamond", "plane", "anchor", "bolt", "leaf", "bicycle", "cube", "bomb"];
+let cards = cardNames.concat(cardNames);//double the array
+    /*
+     * Display the cards on the page
+     *   - shuffle the list of cards using the provided "shuffle" method below
+     *   - loop through each card and create its HTML
+     *   - add each card's HTML to the page
+     */
+    let shuffledCards = shuffle(cards);
 
 /*
  * Create the HTML for the cards in the deck
@@ -49,13 +49,13 @@ let shuffledCards = shuffle(cards);
 function createCards() {
     for (let card of shuffledCards) {
         const li = document.createElement("LI");
-        li.classList.toggle("card");
+        li.classList.add("card");
         const i = document.createElement("i");
-        i.classList.toggle("fa");
+        i.classList.add("fa");
         if (card === "plane") {
-            i.classList.toggle("fa-paper-plane-o");
+            i.classList.add("fa-paper-plane-o");
         } else {
-            i.classList.toggle("fa-" + card);
+            i.classList.add("fa-" + card);
         }
         const deck = document.querySelector('.deck');
         li.appendChild(i);
